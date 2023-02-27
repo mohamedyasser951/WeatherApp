@@ -1,8 +1,13 @@
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:weather_app/repository/models/weather_model.dart';
 
 class BottomWidgets extends StatelessWidget {
+   final WeatherModel model;
+
   const BottomWidgets({
+    required this.model,
     super.key,
   });
 
@@ -21,7 +26,7 @@ class BottomWidgets extends StatelessWidget {
               fontWeight: FontWeight.bold),
         ),
              Text(
-          "10",
+          "${model.wind!.speed!.roundToDouble()}",
           style: GoogleFonts.lato(
               color: Colors.white,
               fontSize: 24,
@@ -43,7 +48,7 @@ class BottomWidgets extends StatelessWidget {
             ),
                Container(
               height: 5,
-              width: 5,
+              width: model.wind!.speed!.roundToDouble(),
               color: Colors.greenAccent,
             ),
           ],
@@ -99,7 +104,7 @@ class BottomWidgets extends StatelessWidget {
               fontWeight: FontWeight.bold),
         ),
              Text(
-          "10",
+          "${model.main!.humidity!}",
           style: GoogleFonts.lato(
               color: Colors.white,
               fontSize: 24,
@@ -121,7 +126,7 @@ class BottomWidgets extends StatelessWidget {
             ),
                Container(
               height: 5,
-              width: 5,
+              width: model.main!.humidity!.toDouble()/2,
               color: Colors.redAccent,
             ),
           ],

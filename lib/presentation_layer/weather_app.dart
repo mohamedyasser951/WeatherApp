@@ -1,9 +1,7 @@
-import 'package:another_transformer_page_view/another_transformer_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_app/business_login/bloc.dart';
-import 'package:weather_app/presentation_layer/widgets/single_dotindicator.dart';
 import 'package:weather_app/presentation_layer/widgets/single_weather_widget.dart';
 import 'package:weather_app/repository/api_helper/weather_repo.dart';
 
@@ -46,17 +44,18 @@ class WeatherApp extends StatelessWidget {
               ],
             ),
             body: Stack(children: [
-              // Container(
-              //   height: double.infinity,
-              //   width: double.infinity,
-              //   decoration: const BoxDecoration(
-              //       image: DecorationImage(
-              //           fit: BoxFit.cover,
-              //           image: AssetImage("assets/images/night.jpg"))),
-              // ),
-              // Container(
-              //   decoration: const BoxDecoration(color: Colors.black38),
-              // ),
+              Container(
+                height: double.infinity,
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage("assets/images/night.jpg"))),
+              ),
+              Container(
+                decoration: const BoxDecoration(color: Colors.black38),
+              ),
+
               // Container(
               //   margin: const EdgeInsets.only(top: 110, left: 20),
               //   child: Row(
@@ -79,7 +78,7 @@ class WeatherApp extends StatelessWidget {
                       child: Text("0000000000000000"),
                     );
                   }
-                  return Text("erroe state");
+                  return const Text("Some Thing Error!!!!!!!",style: TextStyle(color: Colors.white),);
                 },
               )
 

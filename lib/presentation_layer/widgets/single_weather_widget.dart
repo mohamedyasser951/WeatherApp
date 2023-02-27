@@ -52,7 +52,7 @@ class SingleWetherWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "${(model.main!.temp)} \u2103",
+                      "${(model.main!.temp!-273.15).ceilToDouble()} \u2103",
                       style: GoogleFonts.lato(
                           color: Colors.white,
                           fontSize: 85,
@@ -93,7 +93,7 @@ class SingleWetherWidget extends StatelessWidget {
                 decoration:
                     BoxDecoration(border: Border.all(color: Colors.white30)),
               ),
-              const BottomWidgets(),
+               BottomWidgets(model: model),
             ],
           ),
         ],

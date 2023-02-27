@@ -60,7 +60,7 @@ class Weather {
 }
 
 class Main {
-  dynamic temp;
+  double? temp;
   dynamic feelsLike;
   dynamic tempMin;
   dynamic tempMax;
