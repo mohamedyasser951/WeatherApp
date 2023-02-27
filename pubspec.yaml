@@ -41,8 +41,7 @@ dependencies:
   equatable: ^2.0.5
   bloc: ^8.1.1
   flutter_bloc: ^8.1.2
-  another_transformer_page_view: ^2.0.1
-
+  intl: ^0.18.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

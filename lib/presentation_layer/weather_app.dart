@@ -1,91 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:weather_app/business_login/bloc.dart';
+import 'package:weather_app/presentation_layer/widgets/search_item.dart';
 import 'package:weather_app/presentation_layer/widgets/single_weather_widget.dart';
-import 'package:weather_app/repository/api_helper/weather_repo.dart';
+import 'package:weather_app/repository/weather_repo/weather_repo.dart';
 
 class WeatherApp extends StatelessWidget {
   const WeatherApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var isNight = DateFormat.jm().format(DateTime.now()).endsWith("PM");
     return BlocProvider(
         create: (context) => WeatherBloc(weatherRepo: WeatherRepo()),
         child: Builder(builder: (context) {
           final mybloc = BlocProvider.of<WeatherBloc>(context);
-
           return Scaffold(
+            resizeToAvoidBottomInset: false,
             backgroundColor: Colors.black26,
             extendBodyBehindAppBar: true,
-            appBar: AppBar(
-              elevation: 0.0,
-              backgroundColor: Colors.transparent,
-              leading: IconButton(
-                  onPressed: () async {
-                    mybloc.add(GetWeatherEvent(city: "egypt"));
-              
-                  },
-                  icon: const Icon(
-                    Icons.search,
-                    size: 30,
-                    color: Colors.white,
-                  )),
-              actions: [
-                Container(
-                  margin: const EdgeInsets.only(right: 20.0),
-                  child: SvgPicture.asset(
-                    "assets/images/menu.svg",
-                    width: 30,
-                    height: 30,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
             body: Stack(children: [
               Container(
                 height: double.infinity,
                 width: double.infinity,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage("assets/images/night.jpg"))),
+                        image: AssetImage(isNight
+                            ? "assets/images/night.jpg"
+                            : "assets/images/sunny.jpg"))),
               ),
               Container(
                 decoration: const BoxDecoration(color: Colors.black38),
               ),
-
-              // Container(
-              //   margin: const EdgeInsets.only(top: 110, left: 20),
-              //   child: Row(
-              //     children: const [
-              //       SingleDotIndicator(),
-              //     ],
-              //   ),
-              // ),
-
+              SearchItem(mybloc: mybloc),
               BlocBuilder<WeatherBloc, WeatherStates>(
                 builder: (context, state) {
                   if (state is WeatherLoadingState) {
                     return const Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
                     );
                   } else if (state is WeatherSuccessState) {
-                   return  SingleWetherWidget(model: state.weatherModel,);
+                    return SingleWetherWidget(
+                      model: state.weatherModel,
+                    );
                   } else if (state is WeatherIsNotSearchState) {
                     return const Center(
-                      child: Text("0000000000000000"),
+                      child: Text(
+                        "Search For a City",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
                     );
                   }
-                  return const Text("Some Thing Error!!!!!!!",style: TextStyle(color: Colors.white),);
+                  return const Center(
+                    child: Text(
+                      "OOPS Something Wrong !",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  );
                 },
               )
-
-              // TransformerPageView(
-              //   itemCount: 5,
-              //   itemBuilder: (context, index) => const SingleWetherWidget(),
-              // )
             ]),
           );
         }));
