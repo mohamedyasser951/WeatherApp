@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:weather_app/repository/models/weather_model.dart';
+import 'package:weather_app/DataLayer/models/weather_model.dart';
 
 class WeatherRepo {
   static String apiKey = "52f7211ae17a13c3fbd8543942d9d473";

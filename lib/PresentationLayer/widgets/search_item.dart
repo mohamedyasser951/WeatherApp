@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/business_login/bloc.dart';
-import 'package:weather_app/business_login/events.dart';
+import 'package:weather_app/BusinessLogicLayer/bloc.dart';
+import 'package:weather_app/BusinessLogicLayer/events.dart';
 
 class SearchItem extends StatelessWidget {
  final TextEditingController searchController = TextEditingController();
@@ -19,8 +19,8 @@ class SearchItem extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(
         top: 60,
-        right: 0,
-        left: 0,
+        right: 20,
+        left: 20,
       ),
       child: TextField(
         controller: searchController,

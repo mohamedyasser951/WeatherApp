@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:weather_app/business_login/bloc.dart';
-import 'package:weather_app/business_login/states.dart';
-import 'package:weather_app/presentation_layer/widgets/search_item.dart';
-import 'package:weather_app/presentation_layer/widgets/single_weather_widget.dart';
-import 'package:weather_app/repository/weather_repo/weather_repo.dart';
+import 'package:weather_app/BusinessLogicLayer/bloc.dart';
+import 'package:weather_app/BusinessLogicLayer/events.dart';
+import 'package:weather_app/BusinessLogicLayer/states.dart';
+import 'package:weather_app/PresentationLayer/widgets/search_item.dart';
+import 'package:weather_app/PresentationLayer/widgets/single_weather_widget.dart';
+import 'package:weather_app/DataLayer/weather_repo/weather_repo.dart';
 
 class WeatherApp extends StatelessWidget {
   const WeatherApp({super.key});
@@ -14,8 +15,8 @@ class WeatherApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var isNight = DateFormat.jm().format(DateTime.now()).endsWith("PM");
     return BlocProvider(
-        create: (context) =>
-            WeatherBloc(weatherRepo: WeatherRepo())..getLocation(),
+        create: (context) => WeatherBloc(weatherRepo: WeatherRepo())
+          ..add(GetWeatherByLocationEvent()),
         child: Builder(builder: (context) {
           final mybloc = BlocProvider.of<WeatherBloc>(context);
           return Scaffold(
@@ -37,9 +38,13 @@ class WeatherApp extends StatelessWidget {
                 decoration: const BoxDecoration(color: Colors.black38),
               ),
 
-              // SearchItem(mybloc: mybloc),
+              SearchItem(mybloc: mybloc),
+              
               BlocBuilder<WeatherBloc, WeatherStates>(
                 builder: (context, state) {
+                  if (state is WeatherIntialState) {
+                    return Container();
+                  }
                   if (state is WeatherLoadingState) {
                     return const Center(
                       child: CircularProgressIndicator(
@@ -50,10 +55,13 @@ class WeatherApp extends StatelessWidget {
                     return SingleWetherWidget(
                       model: state.weatherModel,
                     );
-                    } else if (state is WeatherIsNotSearchState) {
-                      return  Center(
+                  } else if (state is WeatherIsNotSearchState) {
+                    return Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: SearchItem(mybloc: mybloc),
-                      );
+                      ),
+                    );
                   }
                   return const Center(
                     child: Text(

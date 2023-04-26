@@ -15,4 +15,7 @@ class GetWeatherEvent extends WeatherEvent {
   List<Object?> get props => [city];
 }
 
+class GetWeatherByLocationEvent extends WeatherEvent {}
+
 class ResetWeather extends WeatherEvent {}
+

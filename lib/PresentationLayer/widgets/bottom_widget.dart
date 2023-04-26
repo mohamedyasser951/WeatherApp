@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:weather_app/repository/models/weather_model.dart';
+import 'package:weather_app/DataLayer/models/weather_model.dart';
 
 class BottomWidgets extends StatelessWidget {
   final WeatherModel model;

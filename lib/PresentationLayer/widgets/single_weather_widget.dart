@@ -5,10 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:weather_app/business_login/bloc.dart';
-import 'package:weather_app/presentation_layer/widgets/bottom_widget.dart';
-import 'package:weather_app/presentation_layer/widgets/search_item.dart';
-import 'package:weather_app/repository/models/weather_model.dart';
+import 'package:weather_app/BusinessLogicLayer/bloc.dart';
+import 'package:weather_app/PresentationLayer/widgets/bottom_widget.dart';
+import 'package:weather_app/DataLayer/models/weather_model.dart';
 
 class SingleWetherWidget extends StatelessWidget {
   final WeatherModel model;
@@ -35,9 +34,9 @@ class SingleWetherWidget extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SearchItem(mybloc: mybloc),
+                    // SearchItem(mybloc: mybloc),
                     const SizedBox(
-                      height: 20.0,
+                      height: 170.0,
                     ),
                     Text(
                       model.name!,
