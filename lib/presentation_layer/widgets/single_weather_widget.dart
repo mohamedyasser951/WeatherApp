@@ -1,10 +1,13 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:weather_app/business_login/bloc.dart';
 import 'package:weather_app/presentation_layer/widgets/bottom_widget.dart';
+import 'package:weather_app/presentation_layer/widgets/search_item.dart';
 import 'package:weather_app/repository/models/weather_model.dart';
 
 class SingleWetherWidget extends StatelessWidget {
@@ -18,9 +21,10 @@ class SingleWetherWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var isNight = DateFormat.jm().format(DateTime.now()).endsWith("PM");
+          final mybloc = BlocProvider.of<WeatherBloc>(context);
 
     return Container(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 20),
       child: Column(
         children: [
           Expanded(
@@ -31,8 +35,9 @@ class SingleWetherWidget extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SearchItem(mybloc: mybloc),
                     const SizedBox(
-                      height: 150.0,
+                      height: 20.0,
                     ),
                     Text(
                       model.name!,

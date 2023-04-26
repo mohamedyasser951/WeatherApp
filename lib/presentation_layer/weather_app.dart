@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/business_login/bloc.dart';
+import 'package:weather_app/business_login/states.dart';
 import 'package:weather_app/presentation_layer/widgets/search_item.dart';
 import 'package:weather_app/presentation_layer/widgets/single_weather_widget.dart';
 import 'package:weather_app/repository/weather_repo/weather_repo.dart';
@@ -13,7 +14,8 @@ class WeatherApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var isNight = DateFormat.jm().format(DateTime.now()).endsWith("PM");
     return BlocProvider(
-        create: (context) => WeatherBloc(weatherRepo: WeatherRepo()),
+        create: (context) =>
+            WeatherBloc(weatherRepo: WeatherRepo())..getLocation(),
         child: Builder(builder: (context) {
           final mybloc = BlocProvider.of<WeatherBloc>(context);
           return Scaffold(
@@ -34,7 +36,8 @@ class WeatherApp extends StatelessWidget {
               Container(
                 decoration: const BoxDecoration(color: Colors.black38),
               ),
-              SearchItem(mybloc: mybloc),
+
+              // SearchItem(mybloc: mybloc),
               BlocBuilder<WeatherBloc, WeatherStates>(
                 builder: (context, state) {
                   if (state is WeatherLoadingState) {
@@ -47,13 +50,10 @@ class WeatherApp extends StatelessWidget {
                     return SingleWetherWidget(
                       model: state.weatherModel,
                     );
-                  } else if (state is WeatherIsNotSearchState) {
-                    return const Center(
-                      child: Text(
-                        "Search For a City",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    );
+                    } else if (state is WeatherIsNotSearchState) {
+                      return  Center(
+                        child: SearchItem(mybloc: mybloc),
+                      );
                   }
                   return const Center(
                     child: Text(
