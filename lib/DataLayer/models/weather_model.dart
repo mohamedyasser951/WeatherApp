@@ -1,26 +1,23 @@
+import 'package:hive/hive.dart';
+
+@HiveType(typeId: 0)
 class WeatherModel {
   List<Weather>? weather;
-  String? base;
   Main? main;
+  @HiveField(4)
   int? visibility;
   Wind? wind;
-  int? dt;
-  int? timezone;
-  int? id;
-  String? name;
-  int? cod;
 
-  WeatherModel(
-      {this.weather,
-      this.base,
-      this.main,
-      this.visibility,
-      this.wind,
-      this.dt,
-      this.timezone,
-      this.id,
-      this.name,
-      this.cod});
+  @HiveField(0)
+  String? name;
+
+  WeatherModel({
+    this.weather,
+    this.main,
+    this.visibility,
+    this.wind,
+    this.name,
+  });
 
   WeatherModel.fromJson(Map<String, dynamic> json) {
     if (json['weather'] != null) {
@@ -29,42 +26,35 @@ class WeatherModel {
         weather!.add(Weather.fromJson(v));
       });
     }
-    base = json['base'];
     main = json['main'] != null ? Main.fromJson(json['main']) : null;
     visibility = json['visibility'];
     wind = json['wind'] != null ? Wind.fromJson(json['wind']) : null;
 
-    dt = json['dt'];
-
-    timezone = json['timezone'];
-    id = json['id'];
     name = json['name'];
-    cod = json['cod'];
   }
 }
 
 class Weather {
-  int? id;
-  String? main;
+  @HiveField(1)
   String? description;
-  String? icon;
 
-  Weather({this.id, this.main, this.description, this.icon});
+  Weather({
+    this.description,
+  });
 
   Weather.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    main = json['main'];
     description = json['description'];
-    icon = json['icon'];
   }
 }
 
 class Main {
+  @HiveField(2)
   double? temp;
   dynamic feelsLike;
   dynamic tempMin;
   dynamic tempMax;
   int? pressure;
+  @HiveField(5)
   int? humidity;
   int? seaLevel;
   int? grndLevel;
@@ -72,7 +62,7 @@ class Main {
   double get getTemp => temp! - 272.5;
   double get getMaxTemp => tempMax! - 272.5;
   double get getMinTemp => tempMin! - 272.5;
- 
+
   Main(
       {this.temp,
       this.feelsLike,
@@ -96,6 +86,7 @@ class Main {
 }
 
 class Wind {
+  @HiveField(3)
   double? speed;
   int? deg;
   double? gust;

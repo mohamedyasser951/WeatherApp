@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:weather_app/bloc_observer.dart';
 import 'package:weather_app/PresentationLayer/weather_app.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-    Bloc.observer = MyBlocObserver();
+  await Hive.initFlutter();
+  var openBox = Hive.openBox("weather");
+  Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
 
