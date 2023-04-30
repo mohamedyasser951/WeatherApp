@@ -8,6 +8,4 @@ Package used in this app :-
 - geolocator package to get user location,
 - flutter_launcher_icons package,
 
-<div  style="height: 300px;">
-![ezgif com-video-to-gif (1)](https://user-images.githubusercontent.com/101422982/235363953-6c150321-cced-46e3-93fa-5c097ff58358.gif)
-</div>
+![ezgif com-resize](https://user-images.githubusercontent.com/101422982/235364130-5acafd10-9797-4f1b-b9f4-5cd73ea57160.gif)
