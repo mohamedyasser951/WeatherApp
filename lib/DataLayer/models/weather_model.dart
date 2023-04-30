@@ -1,22 +1,20 @@
-import 'package:hive/hive.dart';
-
-@HiveType(typeId: 0)
 class WeatherModel {
   List<Weather>? weather;
+
   Main? main;
-  @HiveField(4)
+
   int? visibility;
+
   Wind? wind;
 
-  @HiveField(0)
   String? name;
 
   WeatherModel({
-    this.weather,
-    this.main,
-    this.visibility,
-    this.wind,
-    this.name,
+    required this.weather,
+    required this.main,
+    required this.visibility,
+    required this.wind,
+    required this.name,
   });
 
   WeatherModel.fromJson(Map<String, dynamic> json) {
@@ -35,10 +33,10 @@ class WeatherModel {
 }
 
 class Weather {
-  @HiveField(1)
   String? description;
 
-  Weather({
+  Weather(
+    read, {
     this.description,
   });
 
@@ -48,13 +46,11 @@ class Weather {
 }
 
 class Main {
-  @HiveField(2)
   double? temp;
   dynamic feelsLike;
   dynamic tempMin;
   dynamic tempMax;
   int? pressure;
-  @HiveField(5)
   int? humidity;
   int? seaLevel;
   int? grndLevel;
@@ -86,7 +82,6 @@ class Main {
 }
 
 class Wind {
-  @HiveField(3)
   double? speed;
   int? deg;
   double? gust;

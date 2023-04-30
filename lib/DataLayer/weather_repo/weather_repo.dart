@@ -20,15 +20,18 @@ class WeatherRepo {
     return WeatherModel.fromJson(responsebody);
   }
 
+
   static Future<WeatherModel> getWeatherByLocation(
       {required double lat, required double lon}) async {
     String url =
-        "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=$apiKey&units=metric";
+        "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=$apiKey&units=metric";    
+
     var response = await http.get(Uri.parse(url));
     if (response.statusCode != 200) {
       print("Error${response.statusCode}");
     }
     var responsebody = jsonDecode(response.body);
-    return WeatherModel.fromJson(responsebody);
+    WeatherModel weatherModel = WeatherModel.fromJson(responsebody);
+    return weatherModel;
   }
 }

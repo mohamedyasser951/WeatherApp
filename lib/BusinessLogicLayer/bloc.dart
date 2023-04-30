@@ -32,7 +32,6 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherStates> {
 
       if (permission == LocationPermission.denied) {
         emit(WeatherIsNotSearchState());
-     
       } else {
         final weatherModel = await WeatherRepo.getWeatherByLocation(
             lat: position.latitude, lon: position.longitude);
